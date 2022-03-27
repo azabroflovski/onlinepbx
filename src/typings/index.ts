@@ -5,9 +5,30 @@
 | List of common definitions
 */
 
-export interface Connect {
+export interface Settings {
+    apiKey: string
+    domain: string
+    autoConnect?: boolean
+    socket?: {
+        protocol?: string
+        port?: string | number
+    }
+}
+
+export interface Socket {
+    emit(event: EventName | CommandName, data: any): void
+    $emit: any
+}
+
+export interface SocketConnection {
     domain: string
     key: string
+}
+
+export interface Command {
+    name: EventName | CommandName
+    data: any
+    callback: void
 }
 
 export type HangupCause =
@@ -85,6 +106,20 @@ export type HangupCause =
 | List of available commands definitions
 |
 */
+
+export type CommandName =
+    'makeCall' |
+    'transfer' |
+    'bridge' |
+    'eavesdrop' |
+    'hangup_call' |
+    'subscribe' |
+    'rebootPhone' |
+    'sipMessage' |
+    'flushReg' |
+    'trunkList' |
+    'userList' |
+    'message'
 
 export interface MakeCall {
     from: string
@@ -164,6 +199,18 @@ export interface Message {
 | List of available events definitions
 |
 */
+
+export type EventName =
+    'connect' |
+    'blf' |
+    'registration' |
+    'channelCreate' |
+    'channelDestroy' |
+    'channelAnswer' |
+    'channelBridge' |
+    'channelApplication' |
+    'channelHold' |
+    'channelUnhold'
 
 export interface OnBlf {
     uid: string
