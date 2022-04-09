@@ -1,7 +1,7 @@
 {
   "name": "onlinepbx",
   "description": "Simple OnlinePBX telephony interface. Powered by plain JavaScript (written in TypeScript)",
-  "version": "0.0.22-rc",
+  "version": "0.0.23-rc",
   "homepage": "https://github.com/telefoniya/onlinepbx",
   "author": {
     "name": "Aza Broflovski",
@@ -23,8 +23,8 @@
   "keywords": ["pbx", "onlinepbx", "telephony", "call", "online calls", "azabroflovski"],
   "exports": {
     ".": {
-      "import": "./dist/my-lib.es.js",
-      "require": "./dist/my-lib.umd.js"
+      "import": "./dist/onlinepbx.es.js",
+      "require": "./dist/onlinepbx.umd.js"
     }
   },
   "scripts": {
