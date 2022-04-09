@@ -10,7 +10,7 @@ import {
 import { generateString, strToSnakeCase } from '../helpers'
 import { defaultSettings } from '../config'
 
-export class OnlinePBX {
+class OnlinePBX {
     public connected = false
     public transport = false
 
@@ -178,3 +178,9 @@ export class OnlinePBX {
         return this.settings.socket?.protocol + this.settings.domain + ':' + this.settings.socket?.port
     }
 }
+
+export {
+    OnlinePBX
+}
+
+export default OnlinePBX

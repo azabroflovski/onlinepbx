@@ -5,6 +5,7 @@ export default defineConfig({
         lib: {
             entry: './src/lib/index.ts',
             name: 'OnlinePBX',
+            formats: ['es', 'cjs', 'umd', 'iife']
         },
     }
 })
