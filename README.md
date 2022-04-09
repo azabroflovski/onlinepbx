@@ -19,7 +19,7 @@ Coming soon...
 ## Install
 
 ```sh
-npm install onlinepbx-ts
+npm install onlinepbx
 ```
 
 ## Usage
