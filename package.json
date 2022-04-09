@@ -5,6 +5,7 @@
   "files": ["dist"],
   "main": "./dist/onlinepbx.umd.js",
   "module": "./dist/onlinepbx.es.js",
+  "keywords": ["pbx", "onlinepbx", "telephony", "call", "online calls", "azabroflovski"],
   "exports": {
     ".": {
       "import": "./dist/my-lib.es.js",
