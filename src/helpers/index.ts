@@ -1,3 +1,7 @@
+/**
+ * Generate random string
+ * @param length
+ */
 export function generateString(length: number = 16): string {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -10,6 +14,12 @@ export function generateString(length: number = 16): string {
     return string
 }
 
+
+/**
+ * Transform str to snake-case
+ * @param str
+ * @returns {string}
+ */
 export function strToSnakeCase(str: string): string {
     return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)
 }

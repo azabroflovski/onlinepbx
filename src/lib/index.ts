@@ -17,6 +17,7 @@ export class OnlinePBX {
     private settings: Settings
     private defaultSettings: Settings = defaultSettings
 
+    // @ts-ignore
     private socket: Socket
     private callbackEvents = {}
     private socketEvents = {}
@@ -30,11 +31,16 @@ export class OnlinePBX {
         this.settings = settings
     }
 
+    /**
+     * Create connection with onlinePBX
+     * @param props
+     */
     public connect(props: SocketConnection): void {
         if (!props['port']) {
             props['port'] = this.defaultSettings.socket?.port
         }
 
+        // @ts-ignore
         if (typeof io !== 'undefined') {
             this.socketConnect()
         } else {
@@ -49,7 +55,13 @@ export class OnlinePBX {
         }
     }
 
-    public command(name: CommandName | EventName, data, callback): void {
+    /**
+     * Call command
+     * @param name
+     * @param data
+     * @param callback
+     */
+    public command(name: CommandName | EventName, data: any, callback: any): void {
         if (typeof callback === 'undefined' && typeof data === 'function') {
             callback = data
             data = {}
@@ -67,20 +79,39 @@ export class OnlinePBX {
         }
     }
 
-    public on(event: EventName, callback): void {
-        if (typeof event === 'string' && typeof callback === 'function') {
-            this.socketEvents[event] = callback;
+    /**
+     * Events handling
+     * @param event
+     * @param callback
+     */
+    public on(event: EventName, callback: any): void {
+        if (typeof callback === 'function') {
+            // @ts-ignore
+            this.socketEvents[event] = callback
         }
     }
 
-    private sendCommand(name: CommandName | EventName, data, callback): void {
+    /**
+     * Send ws commands
+     * @param name
+     * @param data
+     * @param callback
+     * @private
+     */
+    private sendCommand(name: CommandName | EventName, data: any, callback: any): void {
         data['callbackHash'] = this.addCallback(callback)
         this.socket.emit(name, data)
     }
 
-    private addCallback(callback): boolean | string {
+    /**
+     * Create callback
+     * @param callback
+     * @private
+     */
+    private addCallback(callback: any): boolean | string {
         if (typeof callback === 'function') {
-            const hash = generateString(16)
+            const hash: string = generateString(16)
+            // @ts-ignore
             this.callbackEvents[hash] = callback
             return hash
         }
@@ -88,11 +119,17 @@ export class OnlinePBX {
         return false
     }
 
-    private socketEventHandler(event: EventName | CommandName, data): void | boolean {
+    /**
+     * Handle ws events
+     * @param event
+     * @param data
+     * @private
+     */
+    private socketEventHandler(event: EventName | CommandName, data: any): void | boolean {
         if (event === 'connect') {
             this.connected = true
             while (this.commandsBuffer.length > 0) {
-                const firstBuffer = this.commandsBuffer[0]
+                const firstBuffer: Command = this.commandsBuffer[0]
                 this.sendCommand(firstBuffer.name, firstBuffer.data, firstBuffer.callback)
                 this.commandsBuffer.splice(0, 1)
             }
@@ -102,20 +139,30 @@ export class OnlinePBX {
             this.connected = false
             this.transport = false
         } else if (event === 'callback') {
+            // @ts-ignore
             if (data && data['hash'] && typeof this.callbackEvents[data['hash']] === 'function') {
-                let callback = this.callbackEvents[data['hash']]
+                // @ts-ignore
+                let callback: any = this.callbackEvents[data['hash']]
+                // @ts-ignore
                 delete this.callbackEvents[data['hash']]
                 callback(data)
             }
             return true
         }
 
+        // @ts-ignore
         if (typeof this.socketEvents[event] === 'function') {
+            // @ts-ignore
             this.socketEvents[event](data)
         }
     }
 
+    /**
+     * Create socket connection
+     * @private
+     */
     private socketConnect(): void {
+        // @ts-ignore
         this.socket = io.connect(this.socketUrl, {
             'query': 'key=' + this.settings.apiKey + '&domain=' + this.settings.domain,
             'force new connection': true
@@ -124,6 +171,9 @@ export class OnlinePBX {
         this.socket.$emit = this.socketEventHandler
     }
 
+    /**
+     * Get socket URL address
+     */
     get socketUrl(): string {
         return this.settings.socket?.protocol + this.settings.domain + ':' + this.settings.socket?.port
     }

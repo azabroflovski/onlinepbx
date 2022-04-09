@@ -23,6 +23,7 @@ export interface Socket {
 export interface SocketConnection {
     domain: string
     key: string
+    port?: string | number
 }
 
 export interface Command {
@@ -202,6 +203,9 @@ export interface Message {
 
 export type EventName =
     'connect' |
+    'connecting' |
+    'disconnect' |
+    'callback' |
     'blf' |
     'registration' |
     'channelCreate' |
