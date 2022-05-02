@@ -179,8 +179,14 @@ class OnlinePBX {
     }
 }
 
-export {
-    OnlinePBX
+/**
+ * Create OnlinePBX instance
+ * @param connection {Settings}
+ */
+function createOnlinePBXClient(connection: Settings) {
+    return new OnlinePBX(connection)
 }
 
-export default OnlinePBX
+export {
+    createOnlinePBXClient
+}

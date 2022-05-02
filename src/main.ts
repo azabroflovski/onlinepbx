@@ -1,7 +1,7 @@
 import './style.css'
-import { OnlinePBX } from './lib'
+import { createOnlinePBXClient } from './lib'
 
-const onlinePBX = new OnlinePBX({
+const onlinePBX = createOnlinePBXClient({
     apiKey: '',
     domain: '',
     autoConnect: false
