@@ -25,7 +25,7 @@ npm install onlinepbx
 ## Usage
 
 ```js
-import { OnlinePBX } from 'onlinepbx-ts'
+import { OnlinePBX } from 'onlinepbx'
 
 const onlinePBX = new OnlinePBX({
   apiKey: '',
