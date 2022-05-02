@@ -25,24 +25,24 @@ npm install onlinepbx
 ## Usage
 
 ```js
-import { OnlinePBX } from 'onlinepbx'
+import { createOnlinePBXClient } from 'onlinepbx'
 
-const onlinePBX = new OnlinePBX({
+const telephony = createOnlinePBXClient({
   apiKey: '',
   domain: '',
-  autoConnect: false
+  autoConnect: false // turns off automatic connection when creating a client
 })
 
 // Create ws connection
-onlinePBX.connect()
+telephony.connect()
 
-// Hanlde success connection
-onlinePBX.on('connect', () => {
+// Hanlde success connection event
+telephony.on('connect', () => {
     console.log('success')
 })
 
 // Call to subscriber
-onlinePBX.command('make_call', {
+telephony.command('make_call', {
     from: '101', // internal onlinepbx user number
     to: '998992221144' // subscriber phone number
 })
